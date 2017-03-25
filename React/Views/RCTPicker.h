@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, assign) NSTextAlignment textAlign;
+@property (nonatomic, assign) BOOL loop;
+@property (nonatomic, assign) NSInteger repeat;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onChange;
 

@@ -30,6 +30,7 @@ var PickerIOS = React.createClass({
   propTypes: {
     ...ViewPropTypes,
     itemStyle: itemStylePropType,
+    loop: React.PropTypes.bool,
     onValueChange: React.PropTypes.func,
     selectedValue: React.PropTypes.any, // string or integer basically
   },
@@ -40,6 +41,15 @@ var PickerIOS = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     this.setState(this._stateFromProps(nextProps));
+  },
+
+  _repeat: function(itemCount) {
+    var maxItems = Math.max(itemCount, 10000);
+    var minRepeat = 4;
+    var repeat = Math.round((1 - itemCount / maxItems) * 100);
+    repeat += repeat % 2;
+
+    return Math.max(minRepeat, repeat);
   },
 
   // Translate PickerIOS prop and children into stuff that RCTPickerIOS understands.
@@ -56,7 +66,13 @@ var PickerIOS = React.createClass({
         textColor: processColor(child.props.color),
       });
     });
-    return {selectedIndex, items};
+
+    var repeat = props.loop ? this._repeat(items.length) : 1;
+    if (props.loop) {
+      selectedIndex += items.length * repeat / 2;
+    }
+
+    return {selectedIndex, items, repeat};
   },
 
   render: function() {
@@ -66,6 +82,8 @@ var PickerIOS = React.createClass({
           ref={picker => this._picker = picker}
           style={[styles.pickerIOS, this.props.itemStyle]}
           items={this.state.items}
+          loop={this.props.loop}
+          repeat={this.state.repeat}
           selectedIndex={this.state.selectedIndex}
           onChange={this._onChange}
           onStartShouldSetResponder={() => true}
@@ -125,6 +143,8 @@ var RCTPickerIOS = requireNativeComponent('RCTPicker', {
   },
 }, {
   nativeOnly: {
+    loop: true,
+    repeat: true,
     items: true,
     onChange: true,
     selectedIndex: true,
