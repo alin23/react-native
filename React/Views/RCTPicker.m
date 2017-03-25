@@ -21,6 +21,7 @@
 {
   if ((self = [super initWithFrame:frame])) {
     _color = [UIColor blackColor];
+    _separatorColor = [UIColor blackColor];
     _font = [UIFont systemFontOfSize:21]; // TODO: selected title default should be 23.5
     _selectedIndex = NSNotFound;
     _textAlign = NSTextAlignmentCenter;
@@ -97,6 +98,8 @@ numberOfRowsInComponent:(__unused NSInteger)component
   label.font = _font;
 
   label.textColor = [RCTConvert UIColor:_items[row][@"textColor"]] ?: _color;
+  pickerView.subviews[1].backgroundColor = _separatorColor;
+  pickerView.subviews[2].backgroundColor = _separatorColor;
 
   label.textAlignment = _textAlign;
   label.text = [self pickerView:pickerView titleForRow:row forComponent:component];

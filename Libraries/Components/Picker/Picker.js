@@ -109,6 +109,11 @@ class Picker extends React.Component {
      * @platform ios
      */
     loop: React.PropTypes.bool,
+     /**
+     * Color of separator lines.
+     * @platform ios
+     */
+    separatorColor: React.PropTypes.string,
    /**
     * Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
     * @platform android

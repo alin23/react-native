@@ -83,6 +83,7 @@ var PickerIOS = React.createClass({
           style={[styles.pickerIOS, this.props.itemStyle]}
           items={this.state.items}
           loop={this.props.loop}
+          separatorColor={processColor(this.props.separatorColor)}
           repeat={this.state.repeat}
           selectedIndex={this.state.selectedIndex}
           onChange={this._onChange}
@@ -120,6 +121,7 @@ PickerIOS.Item = class extends React.Component {
     value: React.PropTypes.any, // string or integer basically
     label: React.PropTypes.string,
     color: React.PropTypes.string,
+    separatorColor: React.PropTypes.string,
   };
 
   render() {
@@ -144,6 +146,7 @@ var RCTPickerIOS = requireNativeComponent('RCTPicker', {
 }, {
   nativeOnly: {
     loop: true,
+    separatorColor: true,
     repeat: true,
     items: true,
     onChange: true,
