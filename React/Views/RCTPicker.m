@@ -76,7 +76,7 @@ numberOfRowsInComponent:(__unused NSInteger)component
   return [RCTConvert NSString:_items[row][@"label"]];
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+- (CGFloat)pickerView:(__unused UIPickerView *)pickerView rowHeightForComponent:(__unused NSInteger)component {
   return _font.pointSize + 8;
 }
 
